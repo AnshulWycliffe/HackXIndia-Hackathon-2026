@@ -91,7 +91,7 @@
         <p class="mb-1"><strong>Agency:</strong> {{ current_user.details.agency_name }}</p>
         <p class="mb-1">
             <strong>Status:</strong>
-            {% if current_user.details.approved %}
+            {% if current_user.status == "ACTIVE" %}
                 <span class="badge bg-success">Approved</span>
             {% else %}
                 <span class="badge bg-warning text-dark">Pending Approval</span>
@@ -114,17 +114,6 @@
         <h6 class="mb-2">Authorization</h6>
         <p class="mb-1"><strong>Authorization ID:</strong> {{ current_user.details.authorization_id }}</p>
 
-      </div>
-
-      <!-- Footer -->
-      <div class="modal-footer">
-        <a href="profile/setup" class="btn btn-outline-primary">
-            Edit Profile
-        </a>
-        <button class="btn btn-secondary"
-                data-bs-dismiss="modal">
-            Close
-        </button>
       </div>
 
     </div>

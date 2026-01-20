@@ -5,6 +5,7 @@ from bson import ObjectId
 from . import collector_bp
 from app.decorators import role_required
 from app.config.roles import Roles
+from app.config.constants import ACCOUNT_STATUS
 from app.models.waste import Waste
 from datetime import datetime
 from zoneinfo import ZoneInfo
@@ -49,11 +50,11 @@ def dashboard():
 @login_required
 def profile_setup():
 
-    # Role guard
     if current_user.role != "collector":
         return redirect(url_for("auth.login"))
 
     if request.method == "POST":
+
         details = {
             "collector_name": request.form.get("collector_name"),
             "agency_name": request.form.get("agency_name"),

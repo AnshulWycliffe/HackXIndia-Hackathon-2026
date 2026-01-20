@@ -297,7 +297,11 @@
                 <p class="mb-1"><strong>Registration ID:</strong> {{current_user.details['registration_id']}}</p>
                 <p class="mb-3">
                     <strong>Status:</strong>
-                    <span class="badge bg-success">{{current_user.status}}</span>
+                    {% if current_user.status == "ACTIVE" %}
+                        <span class="badge bg-success">Approved</span>
+                    {% else %}
+                        <span class="badge bg-warning text-dark">Pending Approval</span>
+                    {% endif %}
                 </p>
 
                 <hr>
@@ -350,12 +354,6 @@
 
             </div>
 
-            <!-- Footer -->
-            <div class="modal-footer">
-                <a class="btn btn-secondary w-100" href="profile/setup">
-                    Edit
-                 </a>
-            </div>
             </div>
         </div>
     </div>

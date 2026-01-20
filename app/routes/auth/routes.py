@@ -2,6 +2,7 @@ from flask import render_template, request, redirect, url_for, flash, current_ap
 from flask_login import login_user, logout_user,login_required,current_user
 from mongoengine.errors import NotUniqueError, ValidationError
 from app.config.roles import Roles
+from app.config.constants import ACCOUNT_STATUS
 from . import auth_bp
 from app.models.user import User
 from werkzeug.security import generate_password_hash
@@ -34,6 +35,7 @@ def login():
 def post_login():
     from flask_login import current_user
 
+
     if current_user.role == Roles.CIVIC:
         return redirect(url_for("civic.dashboard"))
 
@@ -45,6 +47,12 @@ def post_login():
 
     if current_user.role == Roles.DISPOSAL:
         return redirect(url_for("disposal.dashboard"))
+        
+    return render_template(
+        "auth/login.html",
+        error="Your profile is under civic verification"
+    )
+    
 
 
 @auth_bp.route("/register", methods=["GET", "POST"])

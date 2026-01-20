@@ -10,4 +10,4 @@ ALERT_LEVELS = ["LOW", "MEDIUM", "HIGH", "CRITICAL"]
 # Facility types
 FACILITY_TYPES = ["Hospital","Clinic","Diagnostic Lab","Medical College"]
 
-ACCOUNT_STATUS = ["PENDING", "ACTIVE", "SUSPENDED", "REVOKED"]
+ACCOUNT_STATUS = ["PENDING", "ACTIVE","REJECTED"]
