@@ -1,4 +1,0 @@
-Flask
-mongoengine
-pymongo
-supabase
