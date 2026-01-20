@@ -16,3 +16,6 @@ WASTE_STATUS = {
 
 # Alert levels
 ALERT_LEVELS = ["LOW", "MEDIUM", "HIGH", "CRITICAL"]
+
+# Facility types
+FACILITY_TYPES = ["hospital","blood bank","lab","clinic"]

@@ -24,10 +24,5 @@ PERMISSIONS = {
         "scan_qr",
         "mark_disposed",
         "upload_certificate"
-    ],
-
-    Roles.CITIZEN: [
-        "view_public_stats",
-        "raise_complaint"
     ]
 }

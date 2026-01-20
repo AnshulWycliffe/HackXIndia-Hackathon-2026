@@ -10,8 +10,7 @@ class Roles:
     :vartype COLLECTOR: Literal['collector']
     :var DISPOSAL: Description
     :vartype DISPOSAL: Literal['disposal']
-    :var CITIZEN: Description
-    :vartype CITIZEN: Literal['citizen']
+   
     :var ALL: Description
     :vartype ALL: list[str]
     '''
@@ -20,12 +19,10 @@ class Roles:
     FACILITY = "facility"
     COLLECTOR = "collector"
     DISPOSAL = "disposal"
-    CITIZEN = "citizen"
 
     ALL = [
         CIVIC,
         FACILITY,
         COLLECTOR,
         DISPOSAL,
-        CITIZEN
     ]
