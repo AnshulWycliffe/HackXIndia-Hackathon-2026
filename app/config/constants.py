@@ -7,12 +7,7 @@ WASTE_CATEGORIES = {
 }
 
 # Waste lifecycle statuses
-WASTE_STATUS = {
-    "CREATED": "created",
-    "PICKED": "picked",
-    "IN_TRANSIT": "in_transit",
-    "DISPOSED": "disposed"
-}
+WASTE_STATUS = ["pending","collected","in_transit","disposed"]
 
 # Alert levels
 ALERT_LEVELS = ["LOW", "MEDIUM", "HIGH", "CRITICAL"]
