@@ -5,6 +5,8 @@ from zoneinfo import ZoneInfo
 
 from app.models.user import User
 from app.models.waste import Waste
+from app.models.audit_log import AuditLog
+
 from app.config.roles import Roles
 from app.config.constants import ACCOUNT_STATUS
 
@@ -53,6 +55,11 @@ def dashboard():
     total_collected = Waste.objects(status="collected").count()
     total_disposed = Waste.objects(status="disposed").count()
 
+
+    audit_logs = AuditLog.objects().order_by("-created_at")[:50]
+
+
+
     return render_template(
         "civic/dashboard.html",
         total_facilities=total_facilities,
@@ -62,7 +69,8 @@ def dashboard():
         pending_users=pending_users,
         total_generated=total_generated,
         total_collected=total_collected,
-        total_disposed=total_disposed
+        total_disposed=total_disposed,
+        audit_logs=audit_logs
     )
 
 

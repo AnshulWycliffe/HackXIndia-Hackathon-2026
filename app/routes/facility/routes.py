@@ -8,6 +8,7 @@ from datetime import datetime
 from zoneinfo import ZoneInfo
 
 from app.models.waste import Waste
+from app.models.audit_log import AuditLog
 
 @facility_bp.route("/dashboard")
 @login_required
@@ -101,6 +102,16 @@ def generate_waste():
             status="pending"
         )
         waste.save()
+
+        AuditLog(
+            action="WASTE_GENERATED",
+            actor_role="facility",
+            actor_id=current_user,
+            target_type="waste",
+            target_id=str(waste.id),
+            message=f"Waste generated: {waste.category}, {waste.quantity}kg"
+        ).save()
+
 
         return jsonify({
             "success": True,

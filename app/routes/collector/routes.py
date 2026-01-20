@@ -7,6 +7,7 @@ from app.decorators import role_required
 from app.config.roles import Roles
 from app.config.constants import ACCOUNT_STATUS
 from app.models.waste import Waste
+from app.models.audit_log import AuditLog
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
@@ -127,6 +128,17 @@ def collect_waste(bid):
         waste.status = "collected"
         waste.collected_by = current_user.id
         waste.save()
+
+        AuditLog(
+            action="WASTE_COLLECTED",
+            actor_role="collector",
+            actor_id=current_user,
+            target_type="waste",
+            target_id=str(waste.id),
+            message="Waste batch collected via QR scan"
+        ).save()
+
+
         return jsonify({
             "success": True,
             "message": "Waste Collected"
