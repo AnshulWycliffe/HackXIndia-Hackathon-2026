@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Collector Profile Setup | CivicBio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+<div class="container my-4">
+    <div class="card">
+        <div class="card-body">
+
+            <h5 class="mb-3">Collector Profile Setup</h5>
+
+            <form method="POST">
+
+                <div class="mb-3">
+                    <label class="form-label">Collector Name</label>
+                    <input type="text" class="form-control"
+                           name="collector_name" required value="{{current_user.details.collector_name}}">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Agency / Company Name</label>
+                    <input type="text" class="form-control"
+                           name="agency_name" required value="{{current_user.details.agency_name}}">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Vehicle Number</label>
+                    <input type="text" class="form-control"
+                           name="vehicle_number"
+                           placeholder="CG-04-AB-1234" required value="{{current_user.details.vehicle_number}}">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Vehicle Type</label>
+                    <select class="form-select" name="vehicle_type" required value="{{current_user.details.vehicle_type}}">
+                        <option>Closed Van</option>
+                        <option>Refrigerated Vehicle</option>
+                        <option>Covered Truck</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Assigned Zone / Area</label>
+                    <input type="text" class="form-control"
+                           name="assigned_zone"
+                           placeholder="Central Raipur" required value="{{current_user.details.assigned_zone}}">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Contact Number</label>
+                    <input type="tel" class="form-control"
+                           name="contact_number" required value="{{current_user.details.contact_number}}">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Authorization ID</label>
+                    <input type="text" class="form-control"
+                           name="authorization_id"
+                           placeholder="COL-AUTH-2026-01" required value="{{current_user.details.authorization_id}}">
+                </div>
+
+                <button class="btn btn-primary w-100">
+                    Save Profile
+                </button>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

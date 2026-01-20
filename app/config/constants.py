@@ -1,10 +1,5 @@
 # Waste Categories (as per biomedical rules)
-WASTE_CATEGORIES = {
-    "YELLOW": "Human & animal anatomical waste",
-    "RED": "Contaminated recyclable waste",
-    "WHITE": "Sharps waste",
-    "BLUE": "Glassware & metallic implants"
-}
+WASTE_CATEGORIES = ["YELLOW","RED","WHITE","BLUE"]
 
 # Waste lifecycle statuses
 WASTE_STATUS = ["pending","collected","in_transit","disposed"]
