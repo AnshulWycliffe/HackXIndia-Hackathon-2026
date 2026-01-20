@@ -6,6 +6,8 @@ from app.decorators import role_required
 from app.config.roles import Roles
 from datetime import datetime
 import uuid
+from datetime import datetime
+from zoneinfo import ZoneInfo
 
 from app.models.waste import Waste
 
@@ -18,7 +20,28 @@ def dashboard():
         .order_by("-created_at")
         .limit(5)
     )
-    return render_template("facility/dashboard.html",recent_waste=recent_waste)
+
+
+    IST = ZoneInfo("Asia/Kolkata")
+
+    start_of_today = datetime.now(IST).replace(
+        hour=0, minute=0, second=0, microsecond=0
+    )
+
+    today_waste_qs = Waste.objects(
+        facility_id=current_user,
+        created_at__gte=start_of_today
+    )
+    waste_today = sum(w.quantity for w in today_waste_qs)
+
+    pending_pickup = today_waste_qs.filter(
+        status="pending"
+    ).count()
+
+    return render_template("facility/dashboard.html",
+                           recent_waste=recent_waste,
+                           waste_today=waste_today,
+                           pending_pickup=pending_pickup)
 
 
 @facility_bp.route("/profile/setup", methods=["GET", "POST"])

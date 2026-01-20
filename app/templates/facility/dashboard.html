@@ -53,7 +53,7 @@
             <div class="card text-center">
                 <div class="card-body">
                     <h6 class="text-muted">Waste Today</h6>
-                    <h4>48 kg</h4>
+                    <h4>{{waste_today}} kg</h4>
                 </div>
             </div>
         </div>
@@ -61,7 +61,7 @@
             <div class="card text-center">
                 <div class="card-body">
                     <h6 class="text-muted">Pending Pickup</h6>
-                    <h4>1</h4>
+                    <h4>{{pending_pickup}}</h4>
                 </div>
             </div>
         </div>
@@ -465,6 +465,12 @@
             ">
                 {{ i.status|capitalize }}
             </span>
+            {% if i.status == "pending"%}
+            <button class="btn btn-sm btn-outline-secondary ms-2"
+                    onclick="openWasteQRCode('{{ i.id }}','{{ i.category }}', '{{ i.quantity }}')">
+                <i class="fa-solid fa-qrcode"></i>
+            </button>
+            {% endif %}
 
         </div>
     </div>
@@ -536,6 +542,7 @@ submitWasteBtn.addEventListener("click", async () => {
             new bootstrap.Modal(wasteQrModal).show();
         }, 300);
 
+
     } catch (err) {
         alert("Something went wrong");
     } finally {
@@ -543,6 +550,24 @@ submitWasteBtn.addEventListener("click", async () => {
         submitWasteBtn.innerText = "Submit Waste";
     }
 });
+
+function openWasteQRCode(id,category,quantity)
+{
+
+        // 2️⃣ Populate QR modal dynamically
+        const qrPayload = `WASTE:${id}`;
+
+        qrImage.src =
+            `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(qrPayload)}`;
+
+        qrDetails.innerHTML = `
+            <p><strong>Waste ID:</strong> ${id}</p>
+            <p><strong>Category:</strong> ${category}</p>
+            <p><strong>Quantity:</strong> ${quantity} kg</p>
+        `;
+        new bootstrap.Modal(wasteQrModal).show();
+}
+
 </script>
 
 
