@@ -26,7 +26,7 @@ class User(UserMixin,Document):
     is_active = BooleanField(default=True)
     status = StringField(default=ACCOUNT_STATUS[0], choices=ACCOUNT_STATUS)
     created_at = DateTimeField(default=lambda: datetime.now(IST))
-
+    details = DictField(default=dict)
     def set_password(self, password: str):
         self.password_hash = generate_password_hash(password)
 

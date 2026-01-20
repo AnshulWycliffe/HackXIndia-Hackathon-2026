@@ -46,8 +46,6 @@ def post_login():
     if current_user.role == Roles.DISPOSAL:
         return redirect(url_for("disposal.dashboard"))
 
-    return redirect(url_for("public.home"))
-
 
 @auth_bp.route("/register", methods=["GET", "POST"])
 def register():
@@ -65,10 +63,24 @@ def register():
         try:
             user = User(
                 email=email,
-                role=role
+                role=role,
+                details={}
             )
             user.set_password(password)
             user.save()
+
+            login_user(user)
+
+            if user.role == Roles.FACILITY:
+                return redirect(url_for("facility.profile_setup"))
+
+            if user.role == Roles.COLLECTOR:
+                return redirect(url_for("collector.profile_setup"))
+
+            if user.role == Roles.DISPOSAL:
+                return redirect(url_for("disposal.profile_setup"))
+
+
 
             return redirect(url_for("auth.login"))  # create later
 

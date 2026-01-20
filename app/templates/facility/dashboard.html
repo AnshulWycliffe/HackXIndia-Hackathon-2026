@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Facility Dashboard | CivicBio</title>
+    <title>{{current_user.details['facility_name']}} Dashboard | CivicBio</title>
 
     <!-- Bootstrap CSS -->
     <link
@@ -34,7 +34,7 @@
 <!-- Header -->
 <nav class="navbar navbar-dark bg-success sticky-top">
     <div class="container-fluid ">
-        <span class="navbar-brand mb-0 h6">CivicBio · Facility</span>
+        <span class="navbar-brand mb-0 h6">CivicBio · {{current_user.details['facility_name']}}</span>
         <button class="btn btn-sm btn-outline-light"
                         data-bs-toggle="modal"
                         data-bs-target="#profileModal">
@@ -283,27 +283,27 @@
 
                 <!-- Hospital Details -->
                 <h6 class="mb-2">Hospital / Facility Details</h6>
-                <p class="mb-1"><strong>Name:</strong> Apollo Hospital</p>
-                <p class="mb-1"><strong>Type:</strong> Multi-specialty Hospital</p>
-                <p class="mb-1"><strong>Registration ID:</strong> BMW-REG-2451</p>
+                <p class="mb-1"><strong>Name:</strong> {{current_user.details['facility_name']}}</p>
+                <p class="mb-1"><strong>Type:</strong> {{current_user.details['facility_type']}}</p>
+                <p class="mb-1"><strong>Registration ID:</strong> {{current_user.details['registration_id']}}</p>
                 <p class="mb-3">
                     <strong>Status:</strong>
-                    <span class="badge bg-success">Approved</span>
+                    <span class="badge bg-success">{{current_user.status}}</span>
                 </p>
 
                 <hr>
 
                 <!-- Address -->
                 <h6 class="mb-2">Address</h6>
-                <p class="mb-1">Apollo Hospital</p>
-                <p class="mb-1">Sector 21, Civil Lines</p>
-                <p class="mb-3">Raipur, Chhattisgarh</p>
+                <p class="mb-1">{{current_user.details['address']}}</p>
+                <p class="mb-1">{{current_user.details['city']}}, {{current_user.details['state']}}</p>
+                <p class="mb-3">{{current_user.details['pincode']}}</p>
 
                 <hr>
 
                 <!-- License Information -->
                 <h6 class="mb-2">License Information</h6>
-                <p class="mb-1"><strong>License No:</strong> CG-BMW-2024-0198</p>
+                <p class="mb-1"><strong>License No:</strong> {{current_user.details['license_no']}}</p>
                 <p class="mb-1"><strong>Issued By:</strong> State Pollution Control Board</p>
                 <p class="mb-3"><strong>Valid Till:</strong> 31 Dec 2026</p>
 
@@ -312,18 +312,25 @@
                 <!-- Waste Authorization -->
                 <h6 class="mb-2">Authorized Waste Categories</h6>
                 <div class="d-flex flex-wrap gap-2 mb-3">
+                    {% if "yellow" in current_user.details['waste_categories'] %}
                     <span class="badge bg-warning text-dark">Yellow</span>
+                    {% endif %}
+                    {% if "red" in current_user.details['waste_categories'] %}
                     <span class="badge bg-danger">Red</span>
+                    {% endif %}
+                    {% if "blue" in current_user.details['waste_categories'] %}
                     <span class="badge bg-info">Blue</span>
+                    {% endif %}
+                    {% if "white" in current_user.details['waste_categories'] %}
                     <span class="badge bg-secondary">White</span>
+                    {% endif %}
                 </div>
 
                 <hr>
 
                 <!-- Capacity -->
                 <h6 class="mb-2">Waste Capacity</h6>
-                <p class="mb-1"><strong>Max Daily Capacity:</strong> 150 kg/day</p>
-                <p class="mb-1"><strong>Average Generated:</strong> 110 kg/day</p>
+                <p class="mb-1"><strong>Max Capacity:</strong> {{current_user.details['max_capacity']}}</p>
 
                 <hr>
 
@@ -357,12 +364,12 @@
         <div class="modal-body text-center">
 
             <!-- QR Image (Static for Prototype) -->
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=APOLLO-HOSPITAL-BMW-REG-2451"
-                alt="Facility QR Code"
-                class="img-fluid mb-3">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={{ current_user.details['facility_name'] }}:{{current_user.details['registration_id']}}"
+            alt="Facility QR Code"
+            class="img-fluid mb-3">
 
-            <p class="mb-1"><strong>Facility:</strong> Apollo Hospital</p>
-            <p class="mb-1"><strong>Registration ID:</strong> BMW-REG-2451</p>
+            <p class="mb-1"><strong>Facility:</strong> {{current_user.details['facility_name']}}</p>
+            <p class="mb-1"><strong>Registration ID:</strong> {{current_user.details['registration_id']}}</p>
 
             <small class="text-muted">
                 Scan this QR to verify facility authorization and waste records.
