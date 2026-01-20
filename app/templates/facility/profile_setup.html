@@ -18,71 +18,71 @@
 
                 <div class="mb-3">
                     <label class="form-label">Facility Name</label>
-                    <input type="text" class="form-control" name="facility_name" required>
+                    <input type="text" class="form-control" name="facility_name" required value="{{current_user.details.facility_name}}">
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Facility Type</label>
                     <select class="form-select" name="facility_type" required>
-                        <option>Hospital</option>
-                        <option>Clinic</option>
-                        <option>Diagnostic Lab</option>
-                        <option>Medical College</option>
+                        <option {% if current_user.details.facility_type == "Hospital" %} selected {% endif %}>Hospital </option>
+                        <option {% if current_user.details.facility_type == "Clinic" %} selected {% endif %} >Clinic</option>
+                        <option {% if current_user.details.facility_type == "Diagnostic Lab" %} selected {% endif %} >Diagnostic Lab</option>
+                        <option {% if current_user.details.facility_type == "Medical College" %} selected {% endif %} >Medical College</option>
                     </select>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">BMW Registration ID</label>
-                    <input type="text" class="form-control" name="registration_id" required>
+                    <input type="text" class="form-control" name="registration_id" required value="{{current_user.details.registration_id}}">
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">License Number</label>
-                    <input type="text" class="form-control" name="license_no" required>
+                    <input type="text" class="form-control" name="license_no" required value="{{current_user.details.license_no}}">
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Address</label>
-                    <textarea class="form-control" name="address" rows="2" required></textarea>
+                    <textarea class="form-control" name="address" rows="2" required>{{current_user.details.address}}</textarea>
                 </div>
 
                 <div class="row">
                     <div class="col-6 mb-3">
                         <label class="form-label">City</label>
-                        <input type="text" class="form-control" name="city">
+                        <input type="text" class="form-control" name="city" value="{{current_user.details.city}}">
                     </div>
                     <div class="col-6 mb-3">
                         <label class="form-label">State</label>
-                        <input type="text" class="form-control" name="state">
+                        <input type="text" class="form-control" name="state" value="{{current_user.details.state}}">
                     </div>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Pincode</label>
-                    <input type="text" class="form-control" name="pincode">
+                    <input type="text" class="form-control" name="pincode"  value="{{current_user.details.pincode}}">
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Max Daily Waste Capacity (kg)</label>
-                    <input type="number" class="form-control" name="max_capacity">
+                    <input type="number" class="form-control" name="max_capacity" value="{{current_user.details.max_capacity}}">
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Authorized Waste Categories</label>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="waste_categories" value="yellow">
+                        <input class="form-check-input" type="checkbox" name="waste_categories" value="yellow" {% if "yellow" in current_user.details.waste_categories%} checked {%endif%}>
                         <label class="form-check-label">Yellow</label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="waste_categories" value="red">
+                        <input class="form-check-input" type="checkbox" name="waste_categories" value="red" {% if "red" in current_user.details.waste_categories%} checked {%endif%}>
                         <label class="form-check-label">Red</label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="waste_categories" value="blue">
+                        <input class="form-check-input" type="checkbox" name="waste_categories" value="blue" {% if "blue" in current_user.details.waste_categories%} checked {%endif%}>
                         <label class="form-check-label">Blue</label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="waste_categories" value="white">
+                        <input class="form-check-input" type="checkbox" name="waste_categories" value="white" {% if "white" in current_user.details.waste_categories%} checked {%endif%}>
                         <label class="form-check-label">White</label>
                     </div>
                 </div>

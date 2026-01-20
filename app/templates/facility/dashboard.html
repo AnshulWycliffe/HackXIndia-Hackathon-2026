@@ -218,8 +218,8 @@
         <div class="modal-body">
 
             <h6>Facility Information</h6>
-            <p class="mb-1"><strong>Facility:</strong> Apollo Hospital</p>
-            <p class="mb-1"><strong>Registration ID:</strong> BMW-REG-2451</p>
+            <p class="mb-1"><strong>Facility:</strong> {{current_user.details['facility_name']}}</p>
+            <p class="mb-1"><strong>Registration ID:</strong> {{current_user.details['registration_id']}}</p>
             <p class="mb-3"><strong>Status:</strong> <span class="badge bg-success">Active</span></p>
 
             <hr>
@@ -364,7 +364,7 @@
         <div class="modal-body text-center">
 
             <!-- QR Image (Static for Prototype) -->
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={{ current_user.details['facility_name'] }}:{{current_user.details['registration_id']}}"
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={{ current_user.id }}"
             alt="Facility QR Code"
             class="img-fluid mb-3">
 
@@ -412,7 +412,7 @@
             <p class="mb-1"><strong>Waste ID:</strong> WB-20260120-001</p>
             <p class="mb-1"><strong>Category:</strong> Yellow</p>
             <p class="mb-1"><strong>Quantity:</strong> 25 kg</p>
-            <p class="mb-2"><strong>Facility:</strong> Apollo Hospital</p>
+            <p class="mb-2"><strong>Facility:</strong> {{current_user.details['facility_name']}}</p>
 
             <small class="text-muted">
                 Paste this QR on the waste bag for tracking.
