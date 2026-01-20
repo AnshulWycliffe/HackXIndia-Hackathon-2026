@@ -1,5 +1,5 @@
 from flask import Flask
-from flask_session import Session
+# from flask_session import Session
 from flask_login import current_user
 
 from app.config.env import load_env
@@ -16,12 +16,10 @@ def create_app():
 
     # Load config object
     app.config.from_object(DevelopmentConfig)
-
+    app.secret_key = "dkndknsnknknsknsknnd"
     # Initialize extensions
     init_db(app)
-    Session(app)
-    
-    login_manager.init_app(app)
+    # Session(app)
     
     from app.routes.auth import auth_bp
     from app.routes.civic import civic_bp
@@ -36,6 +34,10 @@ def create_app():
     app.register_blueprint(collector_bp)
     app.register_blueprint(disposal_bp)
 
+
+    login_manager.init_app(app)
+    login_manager.login_view = "auth.login"
+    
     UTC = ZoneInfo("UTC")
     IST = ZoneInfo("Asia/Kolkata")
     def to_ist(dt):
