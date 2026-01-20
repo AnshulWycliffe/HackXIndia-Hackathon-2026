@@ -19,6 +19,8 @@ class Waste(Document):
     collected_by = ReferenceField("User")
     disposed_by = ReferenceField("User")
     disposal_method = StringField()
+    issue_type = StringField()
+    remarks = StringField()
     created_at = DateTimeField(default=lambda: datetime.now(IST))
     
    

@@ -5,8 +5,6 @@ from . import facility_bp
 from app.decorators import role_required
 from app.config.roles import Roles
 from datetime import datetime
-import uuid
-from datetime import datetime
 from zoneinfo import ZoneInfo
 
 from app.models.waste import Waste
