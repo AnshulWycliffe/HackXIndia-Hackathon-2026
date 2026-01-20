@@ -19,3 +19,5 @@ ALERT_LEVELS = ["LOW", "MEDIUM", "HIGH", "CRITICAL"]
 
 # Facility types
 FACILITY_TYPES = ["hospital","blood bank","lab","clinic"]
+
+ACCOUNT_STATUS = ["PENDING", "ACTIVE", "SUSPENDED", "REVOKED"]

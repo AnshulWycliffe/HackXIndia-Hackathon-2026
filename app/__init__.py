@@ -4,6 +4,7 @@ from flask_session import Session
 from app.config.env import load_env
 from app.config.settings import DevelopmentConfig
 from app.extensions.database import init_db
+from app.extensions.login_manager import login_manager
 
 def create_app():
     # Load environment variables
@@ -17,7 +18,9 @@ def create_app():
     # Initialize extensions
     init_db(app)
     Session(app)
-
+    
+    login_manager.init_app(app)
+    
     from app.routes.auth import auth_bp
     from app.routes.civic import civic_bp
     # from app.routes.facility import facility_bp

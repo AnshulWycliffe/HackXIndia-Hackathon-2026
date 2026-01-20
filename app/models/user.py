@@ -4,50 +4,31 @@ from mongoengine import (
 )
 from datetime import datetime
 from app.config.roles import Roles
-from app.config.constants import FACILITY_TYPES
+from app.config.constants import ACCOUNT_STATUS
 from zoneinfo import ZoneInfo
+from werkzeug.security import generate_password_hash, check_password_hash
+
+from flask_login import UserMixin
 
 IST = ZoneInfo("Asia/Kolkata")
 
 
-class User(Document):
+class User(UserMixin,Document):
     meta = {
         "collection": "users",
         "indexes": ["email", "role", "status"]
     }
-
+    
     # ---- Auth / Core ----
     email = EmailField(required=True, unique=True)
     password_hash = StringField(required=True)
     role = StringField(required=True, choices=Roles.ALL)
     is_active = BooleanField(default=True)
-    status = StringField(default="PENDING", choices=("PENDING", "ACTIVE", "SUSPENDED", "REVOKED"))
+    status = StringField(default=ACCOUNT_STATUS[0], choices=ACCOUNT_STATUS)
     created_at = DateTimeField(default=lambda: datetime.now(IST))
-    approved_by = ReferenceField("self", null=True)
-    approved_at = DateTimeField()
 
-    # ---- FACILITY / Generator ----
-    organization_name = StringField()
-    organization_type = StringField(choices=FACILITY_TYPES)  # HOSPITAL / LAB / CLINIC
-    license_number = StringField()
-    license_document = StringField()  # Supabase path
-    address = StringField()
-    geo_location = DictField()  # { lat, lng }
-    waste_categories = ListField(StringField())
-    max_capacity_per_day = StringField()
-    assigned_zone = StringField()
+    def set_password(self, password: str):
+        self.password_hash = generate_password_hash(password)
 
-    # ---- COLLECTOR ----
-    vehicle_id = StringField()
-    contact_number = StringField()
-    assigned_zone_collector = StringField()
-
-    # ---- DISPOSAL ----
-    facility_name = StringField()
-    treatment_types = ListField(StringField())
-    capacity_per_day = StringField()
-    geo_location_disposal = DictField()  # For routing
-
-    # ---- Utility Methods ----
-    def is_approved(self):
-        return self.status == "ACTIVE"
+    def check_password(self, password: str) -> bool:
+        return check_password_hash(self.password_hash, password)

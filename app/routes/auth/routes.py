@@ -1,6 +1,6 @@
 from flask import render_template, request, redirect, url_for, flash, current_app
 from flask_login import login_user, logout_user
-from app.extensions.storage import get_supabase_client
+from mongoengine.errors import NotUniqueError, ValidationError
 from app.config.roles import Roles
 from . import auth_bp
 from app.models.user import User
@@ -9,23 +9,29 @@ from werkzeug.security import generate_password_hash
 @auth_bp.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        email = request.form.get("email")
+        email = request.form.get("email").strip().lower()
         password = request.form.get("password")
 
         user = User.objects(email=email).first()
 
-        if not user or not user.verify_password(password):
-            flash("Invalid credentials", "danger")
-            return redirect(url_for("auth.login"))
+        if not user:
+            return render_template(
+                "auth/login.html",
+                error="User does not exist"
+            )
+        if not user.check_password(password):
+            return render_template(
+                "auth/login.html",
+                error="Invalid email or password"
+            )
 
         login_user(user)
-        return redirect(url_for("auth.post_login"))
+        return redirect(url_for("dashboard.index"))  # change later
 
     return render_template("auth/login.html")
 
 @auth_bp.route("/post-login")
 def post_login():
-    from app.config.roles import Roles
     from flask_login import current_user
 
     if current_user.role == Roles.CIVIC:
@@ -46,55 +52,46 @@ def post_login():
 @auth_bp.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
-        # Extract form data
-        organization_name = request.form.get("organization_name")
-        organization_type = request.form.get("organization_type")
-        license_number = request.form.get("license_number")
-        address = request.form.get("address")
-        lat = request.form.get("lat")
-        lng = request.form.get("lng")
-        waste_categories = request.form.getlist("waste_categories")
-        max_capacity = request.form.get("max_capacity_per_day")
-        assigned_zone = request.form.get("assigned_zone")
-        email = request.form.get("email")
+        email = request.form.get("email").strip().lower()
         password = request.form.get("password")
+        role = request.form.get("role")
+        # Basic validation
+        if not email or not password or not role:
+            return render_template(
+                "auth/register.html",
+                error="All fields are required"
+            )
 
-        # Handle license file upload via Supabase
-        license_file = request.files.get("license_document")
-        supabase = get_supabase_client()
 
-        existing_user = User.objects(email=email).first()
-        if existing_user:
-            flash("Email already registered!", "danger")
-            return redirect(url_for("auth.register"))
-        license_path = None
-        if license_file:
-            file_name = f"licenses/{email}_{license_file.filename}"
-            supabase.storage.from_(current_app.config["SUPABASE_BUCKET"]).upload(file_name, license_file.read())
-            license_path = file_name
-        existing_user = User.objects(email=email).first()
-        if existing_user:
-            flash("Email already registered!", "danger")
-            return redirect(url_for("auth.register"))
-        # Create user object
-        user = User(
-            role=Roles.FACILITY,
-            organization_name=organization_name,
-            organization_type=organization_type,
-            license_number=license_number,
-            license_document=license_path,
-            address=address,
-            geo_location={"lat": lat, "lng": lng},
-            waste_categories=waste_categories,
-            max_capacity_per_day=max_capacity,
-            assigned_zone=assigned_zone,
-            email=email,
-            password_hash=generate_password_hash(password),
-            status="PENDING"
-        )
 
-        user.save()
-        flash("Registration successful! Awaiting civic approval.", "success")
-        return redirect(url_for("auth.register"))
+        try:
+            user = User(
+                email=email,
+                role=role
+            )
+            user.set_password(generate_password_hash(password))
+            user.save()
+
+            return redirect(url_for("auth.login"))  # create later
+
+        except NotUniqueError:
+            return render_template(
+                "auth/register.html",
+                error="Email already registered"
+            )
+
+        except ValidationError as e:
+            return render_template(
+                "auth/register.html",
+                error=str(e)
+            )
+
+        except Exception as e:
+            return render_template(
+                "auth/register.html",
+                error=f"{e}"
+            )
 
     return render_template("auth/register.html")
+
+
