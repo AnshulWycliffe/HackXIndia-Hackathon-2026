@@ -13,6 +13,7 @@ def login():
         password = request.form.get("password")
 
         user = User.objects(email=email).first()
+        print(user.check_password(password))
 
         if not user:
             return render_template(
@@ -26,7 +27,7 @@ def login():
             )
 
         login_user(user)
-        return redirect(url_for("dashboard.index"))  # change later
+        return redirect(url_for("auth.post_login"))  # change later
 
     return render_template("auth/login.html")
 
@@ -62,14 +63,12 @@ def register():
                 error="All fields are required"
             )
 
-
-
         try:
             user = User(
                 email=email,
                 role=role
             )
-            user.set_password(generate_password_hash(password))
+            user.set_password(password)
             user.save()
 
             return redirect(url_for("auth.login"))  # create later
