@@ -1,0 +1,47 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{current_user.role}}{% endblock %}</title>
+    
+    
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/flashMess.css') }}">
+    <script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+
+    <link rel="stylesheet" href="{{url_for('static',filename='css/common.css')}}">
+
+    <!-- Bootstrap CSS -->
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="{{url_for('static',filename='css/all.min.css')}}">
+
+<head>
+</head>
+
+    
+
+<body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="flash-message {{ category }}">
+        <div class="flash-content">
+            <i class="fas fa-{{ 'check' if category == 'success' else 'times' if category == 'error' else 'info' if category == 'info' else 'exclamation' }}-circle"></i>
+            <span>{{ message }}</span>
+        </div>
+        <button class="flash-close" onclick="this.parentElement.style.display='none'">×</button>
+        <div class="flash-progress"></div>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <!-- Main Content -->
+    <div class="main-content" id="main-content">
+        <!-- Content will be inserted here by child templates -->
+        {% block content %}
+
+        {% endblock %}
+    </div>
+
+</body>
+
+</html>

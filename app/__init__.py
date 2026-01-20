@@ -23,15 +23,15 @@ def create_app():
     
     from app.routes.auth import auth_bp
     from app.routes.civic import civic_bp
-    # from app.routes.facility import facility_bp
-    # from app.routes.collector import collector_bp
-    # from app.routes.disposal import disposal_bp
+    from app.routes.facility import facility_bp
+    from app.routes.collector import collector_bp
+    from app.routes.disposal import disposal_bp
     
 
     app.register_blueprint(auth_bp)
     app.register_blueprint(civic_bp)
-    # app.register_blueprint(facility_bp)
-    # app.register_blueprint(collector_bp)
-    # app.register_blueprint(disposal_bp)
+    app.register_blueprint(facility_bp)
+    app.register_blueprint(collector_bp)
+    app.register_blueprint(disposal_bp)
 
     return app

@@ -1,5 +1,5 @@
 from flask import render_template, request, redirect, url_for, flash, current_app
-from flask_login import login_user, logout_user
+from flask_login import login_user, logout_user,login_required,current_user
 from mongoengine.errors import NotUniqueError, ValidationError
 from app.config.roles import Roles
 from . import auth_bp
@@ -13,8 +13,7 @@ def login():
         password = request.form.get("password")
 
         user = User.objects(email=email).first()
-        print(user.check_password(password))
-
+        
         if not user:
             return render_template(
                 "auth/login.html",
@@ -93,4 +92,11 @@ def register():
 
     return render_template("auth/register.html")
 
+
+@auth_bp.route("/logout", methods=["GET"])
+@login_required
+def logout():
+    if current_user.is_authenticated:
+        logout_user()
+        return redirect(url_for("auth.login"))
 

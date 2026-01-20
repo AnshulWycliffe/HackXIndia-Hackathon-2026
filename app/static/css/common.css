@@ -1,0 +1,322 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Regular */
+@font-face {
+    font-family: 'Poppins';
+    src: url('../webfonts/Poppins-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* SemiBold */
+@font-face {
+    font-family: 'Poppins';
+    src: url('../webfonts/Poppins-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+
+
+:root {
+    --primary-dark: #1e3a8a;
+    --primary-blue: #3b82f6;
+    --secondary-gray: #64748b;
+    --bg-white: #ffffff;
+    --bg-light: #f8fafc;
+    --bg-gray: #454545d2;
+    --main-bg:white;
+    --text-dark: #1e293b;
+    --text-medium: #475569;
+    --text-light: #64748b;
+    --success: #059669;
+    --success-hover: #27ae60;
+    --warning: #d97706;
+    --error: #dc2626;
+
+    --danger-hover: #c0392b;
+    --border: #bec2c6;
+    --hover: #e5e9ec;
+    --thead: #f1f5f9;
+    --tgroup: #f1f5f9;
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.15);
+    --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    --border-radius: 8px;
+
+    --color-text: #1e293b;
+    --color-primary: #3b82f6;
+
+
+    --bg-editor: #f8f9fa;
+}
+
+html.dark-mode {
+    /* Primary Colors */
+    --primary-dark: #1e3a8a;
+    --primary-blue: #3b82f6;
+    --secondary-gray: #94a3b8;
+
+    /* Backgrounds */
+    --bg-white: #1e293b;
+    /* main card/section background in dark mode */
+    --bg-light: #334155;
+    /* secondary sections / table headers */
+    --bg-gray: #0f172a;
+    --main-bg:#0f172a;
+    /* page background */
+    --tgroup: #0f172a;
+
+    /* Text Colors */
+    --text-dark: #f1f5f9;
+    /* main text */
+    --text-medium: #cbd5e1;
+    /* medium text */
+    --text-light: #94a3b8;
+    /* muted text */
+
+    /* Status Colors */
+    --success: #10b981;
+    --success-hover: #059669;
+    --warning: #f59e0b;
+    --error: #ef4444;
+    --danger-hover: #b91c1c;
+
+    /* UI */
+    --border: #666666;
+    --hover: #475569;
+    --thead: #475569;
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.4);
+    --card-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    --border-radius: 8px;
+
+    /* Simplified aliases */
+    --color-text: #f1f5f9;
+    --color-primary: #3b82f6;
+    --secondary: var(--bg-gray);
+    --bg-editor: var(--bg-light);
+}
+
+* {
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--color-text);
+    background-color: var(--bg-white);
+}
+
+.breadcrumb {
+    list-style: none;
+    padding: 10px 15px;
+    margin: 0;
+    background: var(--bg-white);
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    border-radius: 6px;
+}
+
+.breadcrumb li {
+    display: flex;
+    align-items: center;
+    color: var(--color-text);
+    font-weight: 500;
+}
+
+.breadcrumb li a {
+    text-decoration: none;
+    color: var(--primary-blue);
+    font-weight: 600;
+    transition: color 0.2s ease-in-out;
+}
+
+.breadcrumb li a:hover {
+    text-decoration: underline;
+}
+
+/* Separator for all but last item */
+.breadcrumb li:not(:last-child)::after {
+    content: "›";
+    margin: 0 8px;
+    color: var(--color-text);
+    font-weight: bold;
+}
+
+/* Last breadcrumb still clickable but darker */
+.breadcrumb li:last-child a {
+    color: var(--color-text);
+    font-weight: bold;
+}
+
+
+/* Common Elements */
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.containerh {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    width: 70%;
+    border-radius: var(--border-radius);
+}
+
+.section-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: var(--primary-blue);
+    color: white;
+    font-size: 12px;
+    margin-right: 12px;
+}
+
+.section {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    padding: 20px;
+}
+
+.form-row {
+    padding: 1rem 1.5rem;
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.form-group {
+    flex: 1;
+    min-width: 200px;
+}
+
+/* Form Labels */
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--secondary-text);
+}
+
+.required::before {
+    content: '*';
+    color: var(--error);
+    margin-right: 0.25rem;
+}
+
+/* Form Controls */
+.form-control {
+    width: 100%;
+    padding: 0.625rem;
+    border: 1px solid var(--border);
+    border-radius: var(--border-radius);
+    font-size: 16px;
+    transition: all 0.2s;
+    background-color: var(--bg-light);
+    color: var(--color-text);
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px var(--primary-blue);
+}
+
+/* Button Group */
+.button-group {
+    padding: 0 1.5rem 1.5rem;
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    padding: 10px 16px;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 16px;
+    text-decoration: none;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+}
+
+
+
+.btn-primary {
+    background-color: var(--primary-blue);
+    color: white;
+}
+
+.btn:active {
+    transform: translateY(1px);
+}
+
+.btn-secondary {
+    color: white;
+    background-color: var(--primary-blue);
+    border-radius: 20px;
+}
+
+.btn-secondary:hover {
+    background: var(--primary-dark);
+    color: white;
+}
+
+/* Hide sections initially */
+.hidden-section {
+    display: none;
+}
+
+
+
+
+    /* Apply to all <p> not inside Summernote editor */
+    body p:not(.note-editable p):not(.note-editor p) {
+        color: var(--color-text);
+    }
+
+    /* Apply to all <p> not inside Summernote editor */
+    body h1:not(.note-editable h1):not(.note-editor h1) {
+        color: var(--color-text);
+
+    }
+
+    .note-editable,
+    .note-editable * {
+        font-size: 16px;
+        background-color: white;
+    }
+
+    
+    .delete-param:disabled {
+        color: #ccc !important;
+        /* grey color */
+        cursor: not-allowed;
+        /* blocked cursor */
+        opacity: 0.6;
+        /* faded look */
+    }
