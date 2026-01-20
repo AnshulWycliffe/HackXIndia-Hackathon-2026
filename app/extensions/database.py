@@ -1,6 +1,12 @@
 import mongoengine
 
 def init_db(app):
+    '''
+    Initializes The Databasse
+    
+    :param app: initializes the app object for environment variables
+    '''
+
     mongoengine.connect(
         db=app.config['MONGO_DBNAME'],
         host=app.config['MONGO_URI'],
