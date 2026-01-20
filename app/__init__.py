@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, redirect, url_for
 # from flask_session import Session
 from flask_login import current_user
 
@@ -56,5 +56,13 @@ def create_app():
     app.jinja_env.filters['to_ist'] = to_ist
     app.jinja_env.filters['datetime_format'] = datetime_format
 
+    @app.errorhandler(404)
+    def page_not_found(e):
+        if current_user.is_authenticated:
+            # Logged in → show 404 page with breadcrumbs
+            return 404
+        else:
+            # Not logged in → flash and redirect
+            return redirect(url_for("auth.login"))  # change to your login route name
 
     return app
