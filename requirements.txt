@@ -3,3 +3,6 @@ mongoengine
 pymongo
 supabase
 waitress
+flask-login
+flask-session
+python-dotenv
