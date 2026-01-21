@@ -5,6 +5,12 @@ CivicBio is a **role-based, QR-enabled biomedical waste management platform** de
 
 The system focuses on **accountability, traceability, and compliance**, aligned with India’s **Biomedical Waste Management Rules**.
 
+**Hosted**: https://civicbio.vercel.app 
+
+**Problem Statement Video** : [Drive Link](https://drive.google.com/file/d/1Wi9gF-Al6stU0C9vzSEcxFEvSbSOK_IA/view?usp=drive_link)
+
+**Project Demo Video:** [Drive Link](https://drive.google.com/file/d/1Y2UkXB9_hJufIhBkTRjuinAnD07Ruuae/view?usp=sharing)
+
 ---
 
 ## 🚀 Problem Statement
@@ -71,7 +77,7 @@ Facility → QR Generation → Collection → Disposal → Civic Audit
 
 **Backend:** Python, Flask, MongoDB (MongoEngine)  
 **Frontend:** HTML, CSS, JavaScript, Bootstrap, jQuery  
-**Storage:** Supabase  
+**Storage:** Supabase (Not used in prototype)  
 **Other:** QR Codes, jsQR, IST timezone handling  
 
 ---
@@ -93,9 +99,37 @@ app/
 ├── models/  
 ├── templates/  
 ├── static/  
-└── extensions/  
+├── extensions/  
+└──___init___.py
+
+main.py   <- Entry Point
 
 ---
+
+🔑 Demo Login Credentials (For Evaluation)
+
+Use the following dummy accounts to explore different roles in the system:
+
+password : admin (common for all)
+
+Facility -> facility@mail.com \
+Collector -> collector@mail.com \
+Disposal Unit -> disposal@mail.com\
+Civic Authority -> civic@mail.com
+
+⚠️ These accounts are for demonstration purposes only.
+
+### 🗺️ Mock Data & Heatmap Note
+
+The heatmap and analytics views use mock / sample data to demonstrate:
+ - Waste density across zones
+ - Disposal concentration
+ - Civic monitoring capabilities
+
+This is intentional for the hackathon prototype to:
+ - Showcase scalability
+ - Demonstrate data-driven governance
+ - Avoid dependency on real civic datasets
 
 ## 🎯 Hackathon Focus
 
